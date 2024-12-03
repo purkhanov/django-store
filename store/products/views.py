@@ -3,7 +3,7 @@ from products.models import ProductCategory, Product
 
 
 def index(request):
-    context ={
+    context = {
         'title': 'Store',
     }
 
