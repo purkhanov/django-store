@@ -12,3 +12,15 @@ m:
 
 s_user:
 	python3 manage.py createsuperuser
+
+dump_category:
+	python3 manage.py dumpdata products.ProductCategory > ./fixtures/categories.json
+
+dump_product:
+	python3 manage.py dumpdata products.Product > ./fixtures/product.json
+
+load_category:
+	python3 manage.py loaddata fixtures/categories.json
+
+load_product:
+	python3 manage.py loaddata fixtures/product.json
