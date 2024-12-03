@@ -9,3 +9,6 @@ mg:
 
 m:
 	python3 manage.py migrate
+
+s_user:
+	python3 manage.py createsuperuser
