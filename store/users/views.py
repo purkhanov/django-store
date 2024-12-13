@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from products.models import Basket
@@ -34,6 +34,11 @@ class UserRegistretionView(CreateView):
     template_name = 'users/registration.html'
     success_url = reverse_lazy('users:login')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Store - Регистрация'
+        return context
+
 # def registration(request):
 #     if request.method == 'POST':
 #         form = UserRegistrationForm(data = request.POST)
@@ -49,24 +54,38 @@ class UserRegistretionView(CreateView):
 #     return render(request, 'users/registration.html', context)
 
 
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('users:profile'))
-    else:
-        form = UserProfileForm(instance=request.user)
-        
-    baskets = Basket.objects.filter(user=request.user)
+class UserProfileView(UpdateView):
+    model = User
+    form_class = UserProfileForm
+    template_name = 'users/profile.html'
 
-    context = {
-        'title': 'Store - Профиль',
-        'form': form,
-        'baskets': baskets,
-    }
-    return render(request, 'users/profile.html', context)
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Store - Профиль'
+        context['baskets'] = Basket.objects.filter(user=self.object)
+        return context
+
+# @login_required
+# def profile(request):
+#     if request.method == 'POST':
+#         form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(reverse('users:profile'))
+#     else:
+#         form = UserProfileForm(instance=request.user)
+        
+#     baskets = Basket.objects.filter(user=request.user)
+
+#     context = {
+#         'title': 'Store - Профиль',
+#         'form': form,
+#         'baskets': baskets,
+#     }
+#     return render(request, 'users/profile.html', context)
 
 
 def logout(request):
