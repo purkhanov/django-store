@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)0^eel*d4r1v9k&0!(bqugc)s!oh&2uv5@oipqx*bdq#!hyie&
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # Application definition
 
