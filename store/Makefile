@@ -24,3 +24,6 @@ load_category:
 
 load_product:
 	python3 manage.py loaddata fixtures/product.json
+
+test:
+	python3 manage.py test .
