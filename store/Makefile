@@ -30,3 +30,7 @@ test:
 
 celery:
 	celery -A store worker -l INFO
+
+stripe:
+	docker run --rm -it stripe/stripe-cli listen --api-key sk_test_4eC39HqLyjWDarjtT1zdp7dc --forward-to http://127.0.0.1:8000/webhook/stripe
+

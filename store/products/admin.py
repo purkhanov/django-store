@@ -20,6 +20,7 @@ class ProductAdmin(admin.ModelAdmin):
         'name',
         'description',
         ('price','quantity'),
+        'stripe_product_price_id',
         'image',
         'category',
     )
