@@ -27,3 +27,6 @@ load_product:
 
 test:
 	python3 manage.py test .
+
+celery:
+	celery -A store worker -l INFO
