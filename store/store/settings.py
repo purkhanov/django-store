@@ -200,3 +200,10 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 STRIPE_PUBLIC_KEY = ''
 STRIPE_SECRET_KEY = ''
 STRIPE_WEBHOOK_SECRET = ''
+
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3
+}
